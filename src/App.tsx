@@ -22,8 +22,9 @@ function App() {
 
   React.useEffect(() => {
     const savedUser = localStorage.getItem("currentUser");
-    const savedContractor = localStorage.getItem("loggedInContractor");
+      setIsLoggedIn(true);
     if (savedUser) {
+      setIsLoggedIn(true);
       const savedPage = localStorage.getItem("currentPage") || "dashboard"; setCurrentPage(savedPage);
       setUserType("staff");
     } else if (savedContractor) {
