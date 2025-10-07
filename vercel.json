@@ -1,4 +1,5 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "framework": "create-react-app"
+  "buildCommand": "CI=true npm ci && npm run build",
+  "framework": null,
+  "installCommand": "npm ci"
 }
