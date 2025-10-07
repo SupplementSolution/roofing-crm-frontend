@@ -26,7 +26,6 @@ function App() {
     if (savedUser) {
       const savedPage = localStorage.getItem("currentPage") || "dashboard"; setCurrentPage(savedPage);
       setUserType("staff");
-      setCurrentPage("dashboard");
     } else if (savedContractor) {
       setIsLoggedIn(true);
       setUserType("contractor");
