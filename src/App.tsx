@@ -21,6 +21,20 @@ function App() {
   const [apiStatus, setApiStatus] = React.useState<string>('Checking...');
 
   React.useEffect(() => {
+    const savedUser = localStorage.getItem("currentUser");
+    const savedContractor = localStorage.getItem("loggedInContractor");
+    if (savedUser) {
+      setIsLoggedIn(true);
+      setUserType("staff");
+      setCurrentPage("dashboard");
+    } else if (savedContractor) {
+      setIsLoggedIn(true);
+      setUserType("contractor");
+      setCurrentPage("contractor-intake");
+    }
+  }, []);
+
+  React.useEffect(() => {
     fetch('/api/test')
       .then(res => res.json())
       .then((data: any) => setApiStatus(data.message))
