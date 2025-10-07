@@ -24,7 +24,7 @@ function App() {
     const savedUser = localStorage.getItem("currentUser");
     const savedContractor = localStorage.getItem("loggedInContractor");
     if (savedUser) {
-      setIsLoggedIn(true);
+      const savedPage = localStorage.getItem("currentPage") || "dashboard"; setCurrentPage(savedPage);
       setUserType("staff");
       setCurrentPage("dashboard");
     } else if (savedContractor) {
