@@ -20,11 +20,14 @@ function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [apiStatus, setApiStatus] = React.useState<string>('Checking...');
 
-      setIsLoggedIn(true);
+  React.useEffect(() => {
+    const savedUser = localStorage.getItem("currentUser");
+    const savedContractor = localStorage.getItem("loggedInContractor");
     if (savedUser) {
       setIsLoggedIn(true);
-      const savedPage = localStorage.getItem("currentPage") || "dashboard"; setCurrentPage(savedPage);
       setUserType("staff");
+      const savedPage = localStorage.getItem("currentPage") || "dashboard";
+      setCurrentPage(savedPage);
     } else if (savedContractor) {
       setIsLoggedIn(true);
       setUserType("contractor");
@@ -52,7 +55,7 @@ function App() {
           <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>Staff Login</h2>
           <input type="text" placeholder="Username" style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
           <input type="password" placeholder="Password" style={{ width: '100%', padding: '0.75rem', marginBottom: '1.5rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
-          <button onClick={() => { const user = { email: 'admin@estimate.company', role: 'ADMIN', name: 'Admin User' }; localStorage.setItem("currentUser", JSON.stringify(user)); setIsLoggedIn(true); setCurrentPage('dashboard'); }} style={{ width: '100%', background: '#059669', color: 'white', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', marginBottom: '1rem' }}>
+          <button onClick={() => { setIsLoggedIn(true); setCurrentPage('dashboard'); }} style={{ width: '100%', background: '#059669', color: 'white', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', marginBottom: '1rem' }}>
             Login
           </button>
           <button onClick={() => setCurrentPage('landing')} style={{ width: '100%', background: '#e5e7eb', color: '#374151', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer' }}>
@@ -121,7 +124,7 @@ function App() {
           ].map(nav => (
             <button
               key={nav.key}
-              onClick={() => { setCurrentPage(nav.key); localStorage.setItem("currentPage", nav.key); }}
+              onClick={() => setCurrentPage(nav.key)}
               style={{
                 padding: '0.5rem 1rem',
                 background: currentPage === nav.key ? '#059669' : '#e9ecef',
