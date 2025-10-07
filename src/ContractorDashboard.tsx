@@ -15,7 +15,7 @@ const ContractorDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({
 
   const fetchProjects = async (contractorId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/contractors/${contractorId}/projects`);
+      const response = await fetch(`https://api.estimate.company/api/contractors/${contractorId}/projects`);
       const data = await response.json();
       setProjects(data.projects || []);
     } catch (error) {

@@ -8,7 +8,7 @@ const ProjectDetailsPage: React.FC<{projectId: string; onBack: () => void}> = ({
   const [staff, setStaff] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/projects/${projectId}`)
+    fetch(`https://api.estimate.company/api/projects/${projectId}`)
       .then(res => res.json())
       .then(projectData => {
         setProject(projectData.project);
@@ -19,7 +19,7 @@ const ProjectDetailsPage: React.FC<{projectId: string; onBack: () => void}> = ({
         setLoading(false);
       });
       
-    fetch("http://localhost:5000/api/staff")
+    fetch("https://api.estimate.company/api/staff")
       .then(res => res.json())
       .then(data => setStaff(data.staff || []))
       .catch(err => console.error("Failed to fetch staff:", err));

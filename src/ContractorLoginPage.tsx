@@ -16,7 +16,7 @@ const ContractorLoginPage: React.FC<{ onLogin: (contractor: any) => void }> = ({
     const endpoint = isLogin ? "login" : "register";
     
     try {
-      const response = await fetch(`http://localhost:5000/api/contractors/${endpoint}`, {
+      const response = await fetch(`https://api.estimate.company/api/contractors/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)

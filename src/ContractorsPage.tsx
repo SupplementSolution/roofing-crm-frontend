@@ -5,7 +5,7 @@ const ContractorsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/contractors")
+    fetch("https://api.estimate.company/api/contractors")
       .then(res => res.json())
       .then(data => {
         setContractors(data.contractors || []);

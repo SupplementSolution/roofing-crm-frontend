@@ -14,7 +14,7 @@ const ProjectFileManager = ({ projectId = "project_123" }) => {
 
   const fetchProjectFiles = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/projects/${projectId}/files`);
+      const response = await fetch(`https://api.estimate.company/api/projects/${projectId}/files`);
       const data = await response.json();
       setFiles(data.files || []);
     } catch (err) {
@@ -61,7 +61,7 @@ const ProjectFileManager = ({ projectId = "project_123" }) => {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const response = await fetch(`http://localhost:3001/api/projects/${projectId}/files`, {
+      const response = await fetch(`https://api.estimate.company/api/projects/${projectId}/files`, {
         method: "POST",
         body: formData
       });
@@ -136,7 +136,7 @@ const ProjectFileManager = ({ projectId = "project_123" }) => {
                     </div>
                   </div>
                   <a
-                    href={`http://localhost:3001/${file.path}`}
+                    href={`https://api.estimate.company/${file.path}`}
                     download={file.originalName}
                     className="text-blue-500 hover:text-blue-700"
                   >

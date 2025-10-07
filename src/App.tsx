@@ -14,7 +14,7 @@ import ContractorIntakePage from './ContractorIntakePage';
 import LandingPage from "./LandingPage";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('landing');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState<"staff" | "contractor" | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
@@ -26,46 +26,57 @@ function App() {
       .then((data: any) => setApiStatus(data.message))
       .catch(() => setApiStatus('API connection failed'));
   }, []);
-
-  if (!isLoggedIn) {
+  if (currentPage === 'landing') {
     return <LandingPage onSelectUserType={(type: "staff" | "contractor") => {
       setUserType(type);
-      setIsLoggedIn(true);
-      setCurrentPage(type === "staff" ? "dashboard" : "contractor-intake");
+      setCurrentPage(type === "staff" ? "staff-login" : "contractor-login");
     }} />;
   }
 
+  if (currentPage === 'staff-login') {
+    return (
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ background: 'white', borderRadius: '1rem', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', padding: '3rem', maxWidth: '400px', width: '100%' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>Staff Login</h2>
+          <input type="text" placeholder="Username" style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
+          <input type="password" placeholder="Password" style={{ width: '100%', padding: '0.75rem', marginBottom: '1.5rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
+          <button onClick={() => { setIsLoggedIn(true); setCurrentPage('dashboard'); }} style={{ width: '100%', background: '#059669', color: 'white', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', marginBottom: '1rem' }}>
+            Login
+          </button>
+          <button onClick={() => setCurrentPage('landing')} style={{ width: '100%', background: '#e5e7eb', color: '#374151', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer' }}>
+            Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentPage === 'contractor-login') {
+    return <ContractorLoginPage onLogin={(contractor) => {
+      localStorage.setItem("loggedInContractor", JSON.stringify(contractor));
+      setIsLoggedIn(true);
+      setCurrentPage('contractor-intake');
+    }} />;
+  }
   const renderPage = () => {
     if (currentPage === "project-details" && selectedProjectId) {
       return <ProjectDetailsPage projectId={selectedProjectId} onBack={() => setCurrentPage("projects")} />;
     }
     switch(currentPage) {
       case "contractor-intake":
-        const savedContractor = localStorage.getItem("loggedInContractor");
-        if (!savedContractor) {
-          return <ContractorLoginPage onLogin={(contractor) => {
-            localStorage.setItem("loggedInContractor", JSON.stringify(contractor));
-            window.location.reload();
-          }} />;
-        } else {
-          return <ContractorDashboard onNavigate={setCurrentPage} />;
-        }
-      case "request":
+        return <ContractorDashboard onNavigate={setCurrentPage} />;
       case "request":
         return <ProjectRequestPage />;
       case 'contractors':
         return <ContractorsPage />;
       case 'projects':
-        return <ProjectsPage 
+        return <ProjectsPage
           onSelectProject={(projectId: string) => {
             setSelectedProjectId(projectId);
             setCurrentPage('project-details');
-          }} 
+          }}
         />;
       case 'staff':
-        return <StaffPage />;
-      case 'financial':
-        return <FinancialDashboard />;
         return <StaffPage />;
       case 'financial':
         return <FinancialDashboard />;
@@ -75,13 +86,11 @@ function App() {
         return <RoleBasedDashboard />;
     }
   };
-  }
-
   return (
     <div>
-      <nav style={{ 
-        padding: '1rem 2rem', 
-        background: 'white', 
+      <nav style={{
+        padding: '1rem 2rem',
+        background: 'white',
         borderBottom: '1px solid #dee2e6',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
@@ -95,8 +104,8 @@ function App() {
             { key: 'request', label: 'Admin Request' },
             { key: 'projects', label: 'Work Queue' },
             { key: 'contractors', label: 'Contractors' },
-            { key: 'staff', label: 'Staff' }
-            ,{ key: 'financial', label: 'Financial' }
+            { key: 'staff', label: 'Staff' },
+            { key: 'financial', label: 'Financial' }
           ].map(nav => (
             <button
               key={nav.key}
@@ -117,7 +126,6 @@ function App() {
           ))}
         </div>
       </nav>
-
       <main style={{ minHeight: 'calc(100vh - 120px)', backgroundColor: '#f8f9fa' }}>
         {renderPage()}
       </main>

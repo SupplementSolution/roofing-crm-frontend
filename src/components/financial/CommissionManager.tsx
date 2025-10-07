@@ -13,7 +13,7 @@ const CommissionManager = () => {
 
   const fetchCommissions = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/commissions");
+      const response = await fetch("https://api.estimate.company/api/commissions");
       const data = await response.json();
       setCommissions(data.commissions || []);
     } catch (error) {
@@ -23,7 +23,7 @@ const CommissionManager = () => {
 
   const fetchSummary = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/commissions/summary");
+      const response = await fetch("https://api.estimate.company/api/commissions/summary");
       const data = await response.json();
       setSummary(data);
     } catch (error) {
@@ -33,7 +33,7 @@ const CommissionManager = () => {
 
   const fetchStaffs = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/staff");
+      const response = await fetch("https://api.estimate.company/api/staff");
       const data = await response.json();
       setStaffs(data.staff || []);
     } catch (error) {
@@ -43,7 +43,7 @@ const CommissionManager = () => {
 
   const updateCommissionRate = async (staffId: string, rate: number) => {
     try {
-      await fetch(`http://localhost:5000/api/staff/${staffId}/commission-rate`, {
+      await fetch(`https://api.estimate.company/api/staff/${staffId}/commission-rate`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rate })

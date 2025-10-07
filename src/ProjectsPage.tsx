@@ -12,8 +12,8 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:5000/api/projects").then(res => res.json()),
-      fetch("http://localhost:5000/api/staff").then(res => res.json())
+      fetch("https://api.estimate.company/api/projects").then(res => res.json()),
+      fetch("https://api.estimate.company/api/staff").then(res => res.json())
     ]).then(([projectsData, staffData]) => {
       setProjects(projectsData.projects);
       setStaff(staffData.staff);
@@ -23,7 +23,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) => {
 
   const assignStaff = async (projectId: string, assignedInspector: string, assignedEstimator: string, status: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/projects/${projectId}/assign`, {
+      const response = await fetch(`https://api.estimate.company/api/projects/${projectId}/assign`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ assignedInspector, assignedEstimator, status })

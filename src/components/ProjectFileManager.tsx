@@ -6,7 +6,7 @@ const ProjectFileManager = ({ projectId }: { projectId: string }) => {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/projects/${projectId}/files`)
+    fetch(`https://api.estimate.company/api/projects/${projectId}/files`)
       .then(res => res.json())
       .then(data => setFiles(data.files || []))
       .catch(err => console.error(err));
@@ -19,7 +19,7 @@ const ProjectFileManager = ({ projectId }: { projectId: string }) => {
       const formData = new FormData();
       formData.append("file", file);
       try {
-        const res = await fetch(`http://localhost:5000/api/projects/${projectId}/files`, {
+        const res = await fetch(`https://api.estimate.company/api/projects/${projectId}/files`, {
           method: "POST",
           body: formData
         });
@@ -47,7 +47,7 @@ const ProjectFileManager = ({ projectId }: { projectId: string }) => {
         {files.map((file: any) => (
           <div key={file.id} className="flex justify-between p-2 border rounded">
             <span>{file.originalName}</span>
-            <a href={`http://localhost:5000/${file.path}`} download>
+            <a href={`https://api.estimate.company/${file.path}`} download>
               <Download className="h-4 w-4" />
             </a>
           </div>
