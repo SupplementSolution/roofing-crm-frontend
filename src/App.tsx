@@ -49,15 +49,7 @@ function App() {
     }} />;
   }
     return <StaffLogin onLoginSuccess={(user) => { localStorage.setItem("currentUser", JSON.stringify(user)); localStorage.setItem("currentPage", "dashboard"); setIsLoggedIn(true); setCurrentPage("dashboard"); }} onBack={() => setCurrentPage("landing")} />;
-          <button onClick={() => { setIsLoggedIn(true); setCurrentPage('dashboard'); }} style={{ width: '100%', background: '#059669', color: 'white', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', marginBottom: '1rem' }}>
-            Login
-          </button>
-          <button onClick={() => setCurrentPage('landing')} style={{ width: '100%', background: '#e5e7eb', color: '#374151', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer' }}>
-            Back
-          </button>
-        </div>
-      </div>
-    );
+  }
   }
 
   if (currentPage === 'contractor-login') {
