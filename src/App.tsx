@@ -123,7 +123,7 @@ function App() {
           ].map(nav => (
             <button
               key={nav.key}
-              onClick={() => setCurrentPage(nav.key)}
+              onClick={() => { setCurrentPage(nav.key); localStorage.setItem("currentPage", nav.key); }}
               style={{
                 padding: '0.5rem 1rem',
                 background: currentPage === nav.key ? '#059669' : '#e9ecef',
