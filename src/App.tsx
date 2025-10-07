@@ -20,7 +20,6 @@ function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [apiStatus, setApiStatus] = React.useState<string>('Checking...');
 
-  React.useEffect(() => {
       setIsLoggedIn(true);
     if (savedUser) {
       setIsLoggedIn(true);
