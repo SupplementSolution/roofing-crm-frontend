@@ -11,6 +11,7 @@ import RoleBasedDashboard from "./components/RoleBasedDashboard";
 import FinancialDashboard from "./components/financial/FinancialDashboard";
 import ProjectRequestPage from './ProjectRequestPage';
 import ContractorIntakePage from './ContractorIntakePage';
+import StaffLogin from "./StaffLogin";
 import LandingPage from "./LandingPage";
 
 function App() {
@@ -47,14 +48,7 @@ function App() {
       setCurrentPage(type === "staff" ? "staff-login" : "contractor-login");
     }} />;
   }
-
-  if (currentPage === 'staff-login') {
-    return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ background: 'white', borderRadius: '1rem', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', padding: '3rem', maxWidth: '400px', width: '100%' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>Staff Login</h2>
-          <input type="text" placeholder="Username" style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
-          <input type="password" placeholder="Password" style={{ width: '100%', padding: '0.75rem', marginBottom: '1.5rem', border: '1px solid #d1d5db', borderRadius: '0.5rem' }} />
+    return <StaffLogin onLoginSuccess={(user) => { localStorage.setItem("currentUser", JSON.stringify(user)); localStorage.setItem("currentPage", "dashboard"); setIsLoggedIn(true); setCurrentPage("dashboard"); }} onBack={() => setCurrentPage("landing")} />;
           <button onClick={() => { setIsLoggedIn(true); setCurrentPage('dashboard'); }} style={{ width: '100%', background: '#059669', color: 'white', fontWeight: '600', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', marginBottom: '1rem' }}>
             Login
           </button>
@@ -137,6 +131,28 @@ function App() {
               }}
             >
               {nav.label}
+          <button
+            onClick={() => {
+              localStorage.removeItem('currentUser');
+              localStorage.removeItem('currentPage');
+              localStorage.removeItem('loggedInContractor');
+              setIsLoggedIn(false);
+              setCurrentPage('landing');
+            }}
+            style={{
+              padding: '0.5rem 1rem',
+              background: '#dc2626',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
+              marginLeft: 'auto'
+            }}
+          >
+            Logout
+          </button>
             </button>
           ))}
         </div>
