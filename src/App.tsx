@@ -21,7 +21,6 @@ function App() {
   const [apiStatus, setApiStatus] = React.useState<string>('Checking...');
 
   React.useEffect(() => {
-    const savedUser = localStorage.getItem("currentUser");
       setIsLoggedIn(true);
     if (savedUser) {
       setIsLoggedIn(true);
