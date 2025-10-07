@@ -49,7 +49,6 @@ function App() {
     }} />;
     return <StaffLogin onLoginSuccess={(user) => { localStorage.setItem("currentUser", JSON.stringify(user)); localStorage.setItem("currentPage", "dashboard"); setIsLoggedIn(true); setCurrentPage("dashboard"); }} onBack={() => setCurrentPage("landing")} />;
   }
-  }
 
   if (currentPage === 'contractor-login') {
     return <ContractorLoginPage onLogin={(contractor) => {
