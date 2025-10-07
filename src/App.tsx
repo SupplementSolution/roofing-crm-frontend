@@ -124,29 +124,29 @@ function App() {
               }}
             >
               {nav.label}
+            </button>
           <button
             onClick={() => {
-              localStorage.removeItem('currentUser');
-              localStorage.removeItem('currentPage');
-              localStorage.removeItem('loggedInContractor');
+              localStorage.removeItem("currentUser");
+              localStorage.removeItem("currentPage");
+              localStorage.removeItem("loggedInContractor");
               setIsLoggedIn(false);
-              setCurrentPage('landing');
+              setCurrentPage("landing");
             }}
             style={{
-              padding: '0.5rem 1rem',
-              background: '#dc2626',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '500',
-              marginLeft: 'auto'
+              padding: "0.5rem 1rem",
+              background: "#dc2626",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "500",
+              marginLeft: "auto"
             }}
           >
             Logout
           </button>
-            </button>
           ))}
         </div>
       </nav>
