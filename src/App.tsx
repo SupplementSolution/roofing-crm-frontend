@@ -125,6 +125,8 @@ function App() {
             >
               {nav.label}
             </button>
+          ))
+          }
           <button
             onClick={() => {
               localStorage.removeItem("currentUser");
@@ -145,6 +147,8 @@ function App() {
               marginLeft: "auto"
             }}
           >
+            Logout
+          </button>
             Logout
           </button>
           ))}
